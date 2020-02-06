@@ -1,0 +1,4 @@
+localhost:8080/subscribe
+localhost:8080/getSubscriptionReports/tsharmmx
+localhost:8080/getUsersForReport/Sonar_commit
+localhost:8080/remove/userSubscription/tsharmmx/Sonar_commit
