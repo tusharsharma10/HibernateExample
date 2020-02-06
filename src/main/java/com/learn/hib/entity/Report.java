@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="REPORT")
 public class Report {
@@ -19,15 +21,16 @@ public class Report {
 	
 	private String reportName;
 	
-	@ManyToMany(mappedBy = "reportSet")
+	@ManyToMany(mappedBy = "reportSet",fetch=FetchType.LAZY)
 	private Set<Users> userSet = new HashSet<Users>();
 	
 	
-		
+	@JsonIgnore	
 	public Set<Users> getUserSet() {
 		return userSet;
 	}
-
+	
+	
 	public void addToUserSet(Users user) {
 		this.userSet.add(user);
 	}

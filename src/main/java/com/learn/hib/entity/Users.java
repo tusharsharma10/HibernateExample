@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="USERS")
 public class Users {
@@ -44,11 +46,13 @@ public class Users {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@JsonIgnore
 	public Set<Report> getReportSet() {
 		return reportSet;
 	}
 
+	
 	public void addToReportSet(Report report) {
 		this.reportSet.add(report);
 	}
