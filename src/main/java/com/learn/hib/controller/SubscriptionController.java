@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.hib.entity.Report;
@@ -22,6 +23,12 @@ public class SubscriptionController {
 	@Autowired
 	private ReportRepo reportRepo;
 
+	/**
+	 * Adds user subscription
+	 * @param authId
+	 * @param name
+	 */
+	
 	@GetMapping("/add/{authId}/{name}")
 	public void addUsers(@PathVariable String authId, @PathVariable String name) {
 
@@ -29,6 +36,9 @@ public class SubscriptionController {
 		userRepo.save(u1);
 	}
 
+	/**
+	 * Db filler method  controller to add reports
+	 */
 	@GetMapping("/add/reports")
 	public void addreports() {
 
@@ -44,6 +54,9 @@ public class SubscriptionController {
 
 	}
 
+	/**
+	 * DB filler method controller subscribes all users to all reports.
+	 */
 	@GetMapping("/subscribe")
 	public void addSubscription() {
 
@@ -62,6 +75,23 @@ public class SubscriptionController {
 		}
 	}
 	
+	@PutMapping("/subscribe/{authId}/{reportId}")
+	public void subscribeToReport(@PathVariable String authId, @PathVariable String reportId) {
+
+		Users u = userRepo.findById(authId).get();
+		Report r = reportRepo.findById(reportId).get();
+		
+		u.addToReportSet(r);
+		r.addToUserSet(u);
+		userRepo.save(u);
+	}
+	
+	
+	/**
+	 * Gets subscribed reports corresponding to user
+	 * @param authId
+	 * @return
+	 */
 	@GetMapping("getSubscriptionReports/{authId}")
 	public Set<Report> getSubscriptionOfUser(@PathVariable String authId) {
 		
@@ -74,6 +104,11 @@ public class SubscriptionController {
 		
 	}
 	
+	/**
+	 * Gets users corresponding to a report subscribed by them
+	 * @param reportId
+	 * @return
+	 */
 	@GetMapping("getUsersForReport/{reportId}")
 	public Set<Users> getUserForReport(@PathVariable String reportId) {
 		
@@ -86,6 +121,11 @@ public class SubscriptionController {
 		
 	}
 	
+	/**
+	 * Removes user subscription for a report 
+	 * @param authId
+	 * @param reportId
+	 */
 	@DeleteMapping("remove/userSubscription/{authId}/{reportId}")
 	public void removeSubscription(@PathVariable String authId, @PathVariable String reportId) {
 		
