@@ -3,7 +3,7 @@ package com.learn.hib.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,8 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Report {
 
 	@Id
+	@Column(name="REPORT_ID")
 	private String reportId;
-	
+	@Column(name="REPORT_NAME")
 	private String reportName;
 	
 	@ManyToMany(mappedBy = "reportSet",fetch=FetchType.LAZY)
