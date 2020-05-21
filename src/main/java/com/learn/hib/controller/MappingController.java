@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.hib.entity.Branch;
+import com.learn.hib.entity.Passport;
 import com.learn.hib.entity.Student;
 import com.learn.hib.repo.BranchRepository;
 import com.learn.hib.repo.StudentRepository;
@@ -112,6 +113,20 @@ public class MappingController {
 		Optional<Branch> b1 = branchRepo.findById(3l);
 		System.out.println(b1.get().getBranchName());
 		
+	}
+	
+	
+	@GetMapping("/api/student/passport")
+	public void savePassport() {
+		
+		Passport p1 = new Passport(212);
+		
+		Optional<Student> s1 = studentRepo.findById(7L);
+		
+		s1.get().setPassport(p1);
+		
+		studentRepo.save(s1.get());
+	
 	}
 	
 	
