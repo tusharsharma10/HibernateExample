@@ -1,7 +1,5 @@
 package com.learn.hib.entity;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 
@@ -15,7 +13,6 @@ public class Employee {
 	Address address;
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getName() {
 		return name;
