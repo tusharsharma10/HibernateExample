@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 public class Student {
 
@@ -111,6 +114,32 @@ public class Student {
 	public Long getId() {
 		return id;
 	}
+
+
+	//  equals Method
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(!(obj instanceof Student))
+			return false;
+		
+		Student other = (Student)obj;
+		return new EqualsBuilder().append(id,other.id).isEquals();
+		
+		
+	}
+
+	
+	// hashcode method
+	@Override
+	public int hashCode() {
+		
+		return new HashCodeBuilder().append(id).toHashCode();
+		
+	}
+	
+	
+	
 	
 	
 	
