@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
 public class Student {
@@ -27,16 +25,16 @@ public class Student {
 	
 	String name;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE, fetch=FetchType.LAZY)
 	@JoinColumn(name="branchid")
 	Branch branch;
 	
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.REMOVE)
 	Set<Teacher> teacherSet = new HashSet<Teacher>();
 
 
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = {CascadeType.PERSIST , CascadeType.REMOVE})
 	Passport passport;
 	
 	
@@ -53,20 +51,17 @@ public class Student {
 
 
 	public Student(String name) {
-		super();
 		this.name = name;
 	}
 
 
-	public Student(String name, Set<Teacher> teacherSet) {
-		super();
+	public Student(String name, Branch branch) {
 		this.name = name;
-		this.teacherSet = teacherSet;
+		this.branch = branch;
 	}
 
 
 	public Student(String name, Branch branch, Set<Teacher> teacherSet) {
-		super();
 		this.name = name;
 		this.branch = branch;
 		this.teacherSet = teacherSet;
@@ -116,27 +111,27 @@ public class Student {
 	}
 
 
-	//  equals Method
-	@Override
-	public boolean equals(Object obj) {
-		
-		if(!(obj instanceof Student))
-			return false;
-		
-		Student other = (Student)obj;
-		return new EqualsBuilder().append(id,other.id).isEquals();
-		
-		
-	}
+//	//  equals Method
+//	@Override
+//	public boolean equals(Object obj) {
+//		
+//		if(!(obj instanceof Student))
+//			return false;
+//		
+//		Student other = (Student)obj;
+//		return new EqualsBuilder().append(id,other.id).isEquals();
+//		
+//		
+//	}
 
 	
 	// hashcode method
-	@Override
-	public int hashCode() {
-		
-		return new HashCodeBuilder().append(id).toHashCode();
-		
-	}
+//	@Override
+//	public int hashCode() {
+//		
+//		return new HashCodeBuilder().append(id).toHashCode();
+//		
+//	}
 	
 	
 	
