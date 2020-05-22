@@ -1,31 +1,51 @@
 package com.learn.hib.entity;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
-
+@Entity
 public class Employee {
 
 	@Id
-	Integer id;
-	String name;
-	Integer age;
+	private Integer id;
 	
-	Address address;
+	private String name;
+	
+	@Enumerated(EnumType.STRING)
+	private EmployeeStatus empStatus;
+	
+	@Embedded
+	private Address address;
+	
+	
+	
+	
+	
+	
 	public Employee() {
-		super();
 	}
+	
+	
+	
+	public Employee(Integer id, String name, EmployeeStatus empStatus, Address address) {
+		this.id = id;
+		this.name = name;
+		this.empStatus = empStatus;
+		this.address = address;
+	}
+	
+	
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+	
 	public Address getAddress() {
 		return address;
 	}
@@ -39,6 +59,13 @@ public class Employee {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public EmployeeStatus getEmpStatus() {
+		return empStatus;
+	}
+	public void setEmpStatus(EmployeeStatus empStatus) {
+		this.empStatus = empStatus;
+	}
+	
 	
 	
 }
